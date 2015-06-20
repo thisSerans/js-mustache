@@ -1,0 +1,52 @@
+
+<html><head>
+	<script>
+    window.onload = function () {
+    function mustache(getString) {
+        this.getString = getString;
+
+        this.templateValue = {
+            position: 'Javascript developer',
+            name: 'My name',
+            last_name: 'My lastname',
+            data: '2015'
+        };
+
+        this.changeValue = function (getString, templateValue) {
+
+            var re = /%{(\w*)}/g;
+
+            var m;
+
+            do {
+                m = re.exec(getString);
+                if (m) {
+
+                    if (m.indexOf(Object.keys(templateValue))) {
+                        console.log(templateValue[m[1]]);
+                        var getString = getString.replace('%{' + m[1] + '}', templateValue[m[1]]);
+
+                    }
+                }
+            } while (m);
+
+            document.querySelector("body").innerHTML = getString;
+        }
+        this.changeValue(getString, templateValue);
+    }
+    var allString;
+    allString = document.querySelector("body");
+
+    mustache(allString.innerHTML);
+
+}
+</script>
+
+</head><body>
+
+<h1>Rekrutacja na stanowisko %{position}</h1>
+
+<p> %{name} %{last_name} aplikuje na stanowisko %{position} w dniu %{data}</p>
+</body>
+
+</html>
